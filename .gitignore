@@ -29,7 +29,13 @@ fjck/
 .bashrc.bak
 .emacs.d/transient/history.el
 .sudo_as_admin_successful
-
+.gitlibs/
+.config/gh/config.yml
+.babashka/
+.oh-my-bash
+.osh-update
+.sdirs
+.config/gh/hosts.yml
 # -*- mode: gitignore; -*-
 *~
 \#*\#

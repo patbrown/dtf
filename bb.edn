@@ -1,1 +1,35 @@
-{:paths ["plugins"]}
+{:paths ["src" "fjck/plugins/dev/bb" "fjck/plugins/plugins"]
+ :deps {medley/medley {:mvn/version "1.4.0"}
+        clj-kondo/clj-kondo {:mvn/version "2023.12.15"}
+        town.lilac/pyramid {:mvn/version "3.4.0"}
+        inflections/inflections {:mvn/version "0.14.1"}
+        com.cognitect.aws/endpoints {:mvn/version "1.1.12.504"}
+        honeysql/honeysql {:mvn/version "1.0.444"}
+        com.cognitect.aws/s3 {:mvn/version "848.2.1413.0"}
+        com.grzm/awyeah-api {:git/url "https://github.com/grzm/awyeah-api"
+                             :git/sha "e5513349a2fd8a980a62bbe0d45a0d55bfcea141"}
+        org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
+                                 :git/sha "1a841c4cc1d4f6dab7505a98ed2d532dd9d56b78"}}
+ :pods {org.babashka/go-sqlite3 {:version "0.1.0"}}
+ :tasks
+ {:requires ([babashka.process :refer [shell]]
+             [net.drilling.stick.cmd :as cmd]
+             [net.drilling.stick.db :as db])
+  cmd (let [x *command-line-args*
+            command (keyword (first x))
+            instructions (rest x)
+            k (first instructions)
+            v (vec (rest instructions))
+            args (vec (flatten [(get cmd/cmd command) instructions]))]
+        #_(println {:x x :command command :instructions instructions :args args})
+        (case command
+          :menu (println cmd/menu)
+          :add (db/add! k v)
+          :rm (db/rm! k)
+          :pr (db/view k)
+          (case (count x)
+            0 (println cmd/menu)
+            1 (if (= 0 (count (first args)))
+                (apply shell (:view cmd/cmd))
+                (apply shell (get cmd/cmd command)))
+            (apply shell args))))}}
