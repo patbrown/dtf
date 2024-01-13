@@ -1,0 +1,8 @@
+# GET YOU SOME GIT
+DOTFILES=dtf
+REMOTE=git@github.com:patbrown/dtf.git
+
+alias dtf='/usr/bin/git --git-dir=$HOME/$DOTFILES/ --work-tree=$HOME'
+echo "$DOTFILES" >> $HOME/.gitignore
+git clone --bare $REMOTE $HOME/$DOTFILES
+config checkout
