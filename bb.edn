@@ -1,4 +1,4 @@
-{:paths ["src"]
+{:paths ["sources/fj" "sources/plugins"]
  :deps {medley/medley {:mvn/version "1.4.0"}
         clj-kondo/clj-kondo {:mvn/version "2023.12.15"}
         town.lilac/pyramid {:mvn/version "3.4.0"}

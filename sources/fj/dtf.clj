@@ -22,7 +22,9 @@
    :kill ["tb --clear"]
    :graveyard ["tb -a"]
    :restore ["tb -r"]
-   :search ["tb -f"]})
+   :search ["tb -f"]
+   :dtf-push ["/usr/bin/git" "--git-dir=/home/pat/dtf" "--work-tree=/home/pat" "push" "-u" "origin" "main"]
+   :dtfs ["/usr/bin/git" "--git-dir=/home/pat/dtf" "--work-tree=/home/pat" "status"]})
 
 (def menu (map name (keys cmd)))
 
