@@ -1,9 +1,7 @@
 alias h='hstr'
-alias dtf='/usr/bin/git --git-dir=/home/pat/dtf/ --work-tree=/home/pat'
+alias dtf='/usr/bin/git --git-dir=/home/pat/.dtf/ --work-tree=/home/pat'
 alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
 ### ALIAS
-alias sz='source ~/.zshrc'
-alias sync-shell='cd ~/hfc && git pull origin main && popd'
 alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
 
 # Colorize grep output (good for log files)

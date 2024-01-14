@@ -21,8 +21,8 @@
 (straight-use-package 'use-package)
 (use-package straight :custom (straight-use-package-by-default))
 
-(load-file "lisp/kbd.el")
-(load-file "lisp/registers.el")
+(load-file "~/.emacs.d/lisp/kbd.el")
+(load-file "~/.emacs.d/lisp/registers.el")
 
 ;;; GERNERAL
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -43,8 +43,7 @@
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disabled nil)
 (straight-use-package 'project)
-(global-set-key (kbd "C-v") 'backward-char)
-
+(setq make-backup-files nil)
 
 ;; Buffer Navigation
 (setq ns-pop-up-frames nil)
@@ -158,8 +157,6 @@
          (add-hook 'cider-mode-hook #'rainbow-delimiters-mode)
          (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)))
 
-(use-package smartrep :straight t :ensure t)
-
 (use-package vimish-fold :straight t :init (vimish-fold-global-mode 1))
 
 (use-package which-key :straight t :defer t :init (require 'which-key) (which-key-mode))
@@ -228,9 +225,6 @@
 (straight-use-package 'ivy-prescient)
 (straight-use-package 'smex)
 (straight-use-package 'project)
-
-
-
 (winner-mode 1)
 
 (defun kill-other-buffers ()
@@ -291,9 +285,7 @@
     (setq ivy--old-re nil)
     (setq ivy--regex-function
           (or (cadr (memq ivy--regex-function my-ivy-builders))
-              (car my-ivy-builders)))))
-
-(advice-add 'ivy-toggle-fuzzy :override #'my-rotate-builders))
+              (car my-ivy-builders))))))
 
 (add-hook 'clojure-mode-hook 'lsp)
 (add-hook 'clojurescript-mode-hook 'lsp)
@@ -357,3 +349,21 @@
 
 
 (global-set-key (kbd "C-v") 'backward-char)
+
+(defun mount-dtf ()
+  (interactive)
+  (unless (boundp 'dtf-magit-hook?)
+  (eval-after-load 'magit
+    '(let ((myconf-path (expand-file-name ".dtf")))
+       (when (and (file-exists-p myconf-path)
+                  (not (file-exists-p ".git")))
+         (add-to-list 'magit-git-global-arguments
+                      (format "--work-tree=%s"
+                              ;; Drop trailing slash.
+                              (directory-file-name
+                               ;; Get directory part (`dirname`).
+                               (file-name-directory myconf-path))))
+         (add-to-list 'magit-git-global-arguments
+                      (format "--git-dir=%s" myconf-path)))))
+  (setq dtf-magit-hook? t)))
+

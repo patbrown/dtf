@@ -1,5 +1,5 @@
 .cpcache/
-dtf
+.dtf
 .npm
 node_modules
 .clj-kondo

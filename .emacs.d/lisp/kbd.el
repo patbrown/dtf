@@ -1,3 +1,4 @@
+(global-set-key (kbd "C-v") 'backward-char)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key     (kbd "C-c C-c a") 'append-to-register)
 (global-set-key     (kbd "C-c C-c i") 'insert-register)
@@ -90,36 +91,6 @@
 (define-key start-map (kbd "x") 'delete-indentation)
 (define-key start-map (kbd "z") 'z-map)
 
-(smartrep-define-key
-    global-map "C-c ;" '(("f" . 'windmove-up)
-			 ("d" . 'windmove-down)
-			 ("s" . 'windmove-right)
-			 ("a" . 'windmove-down)
-			 ("g" . 'bufler-list)
-			 ("h" . 'buf-move)
-			 ("j" . 'buf-move-up)
-			 ("k" . 'buf-move-down)
-			 ("l" . 'buf-move-left)
-			 (";" . 'buf-move-right)
-			 ("n" . 'winner-redo)
-			 ("p" . 'winner-undo)
-			 ("b" . 'ivy-switch-buffer)
-			 ("x" . 'kill-buffer-and-window)
-			 ("SPC" . 'jump-map)
-			 ))
-
-(smartrep-define-key
-    global-map "C-c x" '(("x" . 'delete-indentation)))
-
-;; (smartrep-define-key
-;;     global-map "C-c t" '(("n" . 'tab-line-switch-to-next-tab)
-;; 		       ("p" . 'tab-line-switch-to-prev-tab)
-;; 		       ("x" . 'kill-buffer)
-;; 		       ("f" . 'tab-next)
-;; 		       ("b" . 'tab-previous)
-;; 		       ("r" . 'tab-rename)
-;; 		       ("X" . 'tab-close)
-;; 		       ("k" . 'kill-buffer)))
 
 ;; Jump Map
 (global-set-key (kbd "C-c j") 'jump-map)
@@ -145,16 +116,7 @@
 (define-key lisp-map (kbd "r") 'paredit-wrap-round)
 (define-key lisp-map (kbd "c") 'paredit-wrap-curly)
 (define-key lisp-map (kbd "s") 'paredit-wrap-square)
-    (smartrep-define-key
-        global-map "M-p" '((";" . 'paredit-forward-slurp-sexp)
-                           ("l" . 'paredit-backward-slurp-sexp)
-                           ("k" . 'paredit-forward-barf-sexp)
-                           ("j" . 'paredit-backward-barf-sexp)
-                           ("r" . 'paredit-wrap-round)
-			   ("c" . 'paredit-wrap-curly)
-			   ("s" . 'paredit-wrap-square)))
-
-
+    
 (global-unset-key (kbd "<left>"))
 (global-unset-key (kbd "<right>"))
 (global-unset-key (kbd "<up>"))
