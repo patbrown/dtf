@@ -1,4 +1,4 @@
-(ns net.drilling.stick.cmd
+(ns dtf
   (:require [babashka.process :as sh]
             [medley.core]))
 
