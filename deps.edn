@@ -1,1 +1,63 @@
-{}
+{:paths ["src" "resources" "sources/fjck/src" "sources/fjck/resources" "sources/plugins" "sources/dev"]
+ :deps {;; PLUGINS
+        #_#_io.github.patbrown/secrets {:git/sha "5ab81b7f5c5e6df25ea56fdee96b790c998c529e"}
+        #_#_io.github.patbrown/switchboard {:git/sha "6fe731783ff3cea1e53c99bb3219bfdba19fce28"}
+        org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/core.async {:mvn/version "1.6.681"}
+        org.clojure/spec.alpha {:mvn/version "0.3.218"}
+        com.cognitect/transit-clj {:mvn/version "1.0.333"}
+        #_#_com.flexiana/framework {:mvn/version "0.5.0-rc6"}
+        io.github.patbrown/framework {:git/url "https://github.com/patbrown/framework"
+                                      :sha "46a3d669c98b4ef5d596d3ed21ec83980c734da3"}
+        com.flexiana/tiny-rbac {:mvn/version "0.1.1"}
+        piotr-yuxuan/closeable-map {:mvn/version "0.36.2"}
+        io.github.robertluo/fun-map {:mvn/version "0.5.117"}
+        com.evocomputing/colors {:mvn/version "1.0.6"}
+        orchestra/orchestra {:mvn/version "2021.01.01-1"}
+        expound/expound {:mvn/version "0.9.0"}
+        failjure/failjure {:mvn/version "2.3.0"}
+        exoscale/coax {:mvn/version "1.0.2"}
+        babashka/fs {:mvn/version "0.5.20"}
+        babashka/babashka.curl {:mvn/version "0.1.2"}
+        io.ably/ably-java {:mvn/version "1.2.33"}
+        ring/ring-core {:mvn/version "1.11.0-RC2"}
+        http-kit/http-kit {:mvn/version "2.6.0-RC1"}
+        hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
+        integrant/integrant {:mvn/version "0.9.0-alpha3"}
+        integrant/repl {:mvn/version "0.3.3"}
+        metosin/reitit {:mvn/version "0.7.0-alpha7"}
+        com.brunobonacci/mulog {:mvn/version "0.9.0"}
+        com.cognitect.aws/api {:mvn/version "0.8.681"}
+        com.cognitect.aws/endpoints {:mvn/version "1.1.12.489"}
+        com.cognitect.aws/s3 {:mvn/version "847.2.1398.0"}
+        org.clojure/java.jdbc {:mvn/version "0.7.12"}
+        mysql/mysql-connector-java {:mvn/version "8.0.30"}
+        honeysql/honeysql {:mvn/version "1.0.461"}
+        com.taoensso/carmine {:mvn/version "3.3.2"}
+        cheshire/cheshire {:mvn/version "5.12.0"}
+        town.lilac/pyramid {:mvn/version "3.4.0"}
+        com.brunobonacci/where {:mvn/version "0.5.6"}
+        exoscale/interceptor {:mvn/version "0.1.16"}
+        tech.droit/fset {:mvn/version "0.1.1"}
+        tick/tick {:mvn/version "0.7.5"}
+        medley/medley {:mvn/version "1.4.0"}
+        clj-kondo/clj-kondo {:mvn/version "2023.12.15"}
+        re-frame/re-frame {:mvn/version "1.4.2"}
+        reagent/reagent {:mvn/version "1.2.0"}
+        org.postgresql/postgresql {:mvn/version "42.3.3"}}
+ :aliases
+ {:plugins/dev {:extra-paths ["plugins/dev"]
+                :extra-deps
+                {io.github.nextjournal/clerk {:mvn/version "0.15.957"}
+                 djblue/portal {:mvn/version "0.35.1"}
+                 cider/cider-nrepl {:mvn/version "0.32.0-alpha3"}
+                 mx.cider/tools.deps.enrich-classpath {:mvn/version "1.9.0"}
+                 nrepl/nrepl {:mvn/version "1.1.0-alpha1"}
+                 refactor-nrepl/refactor-nrepl {:mvn/version "3.6.0"}}}
+  :run/api {:main-opts ["-m" "net.drilling.run.api"]}
+  :run/repl {:main-opts
+             ["-m" "nrepl.cmdline"
+              "-b" "0.0.0.0" "-p" "8675"
+              "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"]}
+  :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}}
+          :ns-default build}}}
