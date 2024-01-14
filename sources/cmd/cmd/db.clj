@@ -1,4 +1,4 @@
-(ns dtf.db
+(ns cmd.db
   (:require [clojure.string]
             [clojure.edn]
             [babashka.fs]

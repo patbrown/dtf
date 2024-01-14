@@ -1,4 +1,4 @@
-(ns dtf
+(ns cmd
   (:require [babashka.process :as sh]
             [medley.core]))
 
