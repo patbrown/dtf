@@ -1,8 +1,10 @@
+.cpcache/
 dtf
 .npm
 node_modules
 .clj-kondo
 .config/configstore/update-notifier-taskbook.json
+.salt
 .bash_history
 .ssh
 .bash_it/
