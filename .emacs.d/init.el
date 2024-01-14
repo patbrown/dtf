@@ -1,4 +1,7 @@
 (setq inhibit-startup-message t)
+(setq auto-save-list-file-prefix "~/.emacs.d/autosave/")
+(setq auto-save-file-name-transforms
+      '((".*" "~/.emacs.d/autosave/" t)))
 
 ;; BASE SYSTEM
 (setq package-enable-at-startup nil)
@@ -213,16 +216,27 @@
   (ivy-count-format "(%d/%d) ")
   (ivy-use-virtual-buffers t)
   :init
-  (ivy-prescient-mode)
   (defvar my-ivy-builders '(ivy--regex-ignore-order
                             ivy--regex-fuzzy
 			    ivy--regex-plus)
   "Preferred values for `ivy--regex-function'.")
+(use-package undo-tree
+  :straight t
+  :defer t
+  :ensure t
+  :diminish undo-tree-mode
+  :init
+  (progn
+    (require 'undo-tree)
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-auto-save-history nil)
+    (setq undo-tree-visualizer-diff t)))
+
 (use-package vundo :straight t
-      :bind ("C-x u" . vundo)
+      :bind ("C-x U" . vundo)
       :config (setq vundo-glyph-alist vundo-unicode-symbols))
 (straight-use-package 'prescient)
-(straight-use-package 'ivy-prescient)
 (straight-use-package 'smex)
 (straight-use-package 'project)
 (winner-mode 1)
@@ -372,6 +386,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("bbb13492a15c3258f29c21d251da1e62f1abb8bbd492386a673dcfab474186af" default))
  '(warning-suppress-types '((use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -379,3 +395,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
