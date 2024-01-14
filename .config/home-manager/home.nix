@@ -24,6 +24,7 @@
 
 pkgs.awscli
 pkgs.babashka
+pkgs.bash-completion
 pkgs.bun
 pkgs.clojure
 pkgs.clojure-lsp
@@ -33,6 +34,7 @@ pkgs.fzf
 pkgs.gh
 pkgs.git-lfs
 pkgs.gum
+pkgs.hstr
 pkgs.jdk11
 pkgs.nodejs
 pkgs.s3cmd

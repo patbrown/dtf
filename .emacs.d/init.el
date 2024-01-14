@@ -1,12 +1,5 @@
 (setq inhibit-startup-message t)
 
-(progn
-      (tool-bar-mode -1)
-      (menu-bar-mode -1)
-      (tooltip-mode -1)
-      (set-fringe-mode 10)
-      (scroll-bar-mode -1))
-
 ;; BASE SYSTEM
 (setq package-enable-at-startup nil)
 (defvar bootstrap-version)
