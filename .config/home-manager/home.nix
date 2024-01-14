@@ -30,6 +30,7 @@ pkgs.clojure
 pkgs.clojure-lsp
 pkgs.doctl
 pkgs.emacs-nox
+pkgs.fd
 pkgs.fzf
 pkgs.gh
 pkgs.git-lfs
