@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.secrets
+(ns patbrown.secrets
   #?(:bb (:require [babashka.pods :as pods]
                    [clojure.java.io :as io]
                    [clojure.java.shell :as sh]

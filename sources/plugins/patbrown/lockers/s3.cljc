@@ -9,7 +9,7 @@
                     [patbrown.secrets :as ***]
                     [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                             kw->locker-name locker-name->kw]]))
-  #?(:bb (:import [patbrown.supastore IStorageBackend Storage]
+  #?(:bb (:import [patbrown.supastore IStorageBackend]
                    [java.io Writer Closeable])
      :clj (:import [patbrown.supastore IStorageBackend]
                    [clojure.lang IAtom IDeref IRef IMeta IObj IReference Atom]

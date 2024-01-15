@@ -5,9 +5,9 @@
             [clojure.edn]
             [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                     kw->locker-name locker-name->kw]])
-  #?(:bb (:import [patbrown.supastore IStorageBackend IStorage])
+  #?(:bb (:import [patbrown.supastore IStorageBackend])
      :clj (:import [java.util.concurrent.locks ReentrantLock]
-                   [patbrown.supastore IStorageBackend IStorage])))
+                   [patbrown.supastore IStorageBackend])))
 
 (defn to-path [connection locker]
   (str connection "/" locker))
@@ -60,7 +60,7 @@
               state)]
       (commit! atom-ref f data)))
   (cleanup [_]
-    (or (delete! connection locker)
+    (or (delete connection locker)
         (throw (Exception. (str "Could not delete " (str connection "/" locker)))))))
 
 (def default-read-with  clojure.edn/read-string)

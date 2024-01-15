@@ -1,8 +1,8 @@
 (ns patbrown.supatom
   #?(:bb (:require [patbrown.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
-                   [patbrown.supastore.fs :as fs]
-                   [patbrown.supastore.s3 :as s3]
-                   [patbrown.supastore.postgres :as postgres]
+                   [patbrown.lockers.fs :as fs]
+                   [patbrown.lockers.s3 :as s3]
+                   [patbrown.lockers.postgres :as postgres]
                    [patbrown.supalog :refer [log->]]
                    [patbrown.supareg :refer [reg->]])
      :clj (:require [patbrown.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
