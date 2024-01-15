@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.supastore
+(ns patbrown.supastore
   (:require [clojure.edn]
             [clojure.string])
   #?(:bb (:import [java.io Writer Closeable])

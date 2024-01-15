@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.switchboard
+(ns patbrown.board
   (:require [clojure.core.async :as a]
             [medley.core]))
 

@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.inflections
+(ns patbrown.inflections
   (:refer-clojure :exclude [replace])
   (:require [clojure.string :refer [blank? lower-case upper-case replace split join]]
             [clojure.walk :refer [keywordize-keys]]))

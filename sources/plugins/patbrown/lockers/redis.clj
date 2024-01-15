@@ -1,11 +1,11 @@
-(ns net.drilling.plugins.lockers.redis
+(ns patbrown.lockers.redis
   (:refer-clojure :exclude [get set])
   (:require [taoensso.carmine :as car]
-            [net.drilling.plugins.secrets :as ***]
+            [patbrown.secrets :as ***]
             [clojure.core.async :as a]
-            [net.drilling.plugins.supastore :refer [commit cleanup commit! supastore create-supastore
+            [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                     kw->locker-name locker-name->kw]])
-  (:import [net.drilling.plugins.supastore IStorageBackend]
+  (:import [patbrown.supastore IStorageBackend]
            [java.util.concurrent.locks ReentrantLock]))
 
 (def config

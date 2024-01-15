@@ -58,8 +58,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq vc-follow-symlinks t)
 
-(menu-bar-mode -1)
 ;; General Look and Feel
+(menu-bar-mode -1)
 (setq dired-use-ls-dired nil)
 (setq display-time-24hr-format t)
 (setq display-time-load-average t)
@@ -67,7 +67,8 @@
 (if (fboundp 'fringe-mode)
     (fringe-mode -1))
 (display-line-numbers-mode 1)
-(setq linum-format "%d  ")
+(setq linum-format "%d ")
+(setq display-line-numbers-mode t)
 (setq frame-title-format "%b")
 (show-paren-mode 1)
 (global-hl-line-mode 1)
@@ -364,9 +365,16 @@
 
 (global-set-key (kbd "C-v") 'backward-char)
 
+(defun mount-bare-git-repo (work-tree git-dir)
+  (interactive)
+  (add-to-list 'magit-git-global-arguments (format "--work-tree=%s" (expand-file-name work-tree)))
+  (add-to-list 'magit-git-global-arguments (format "--git-dir=%s" (directory-file-name git-dir))))
+
+(defun mount-dtf (mount-bare-git-repo ".dtf" "~"))
+
 (defun mount-dtf ()
   (interactive)
-  (unless (boundp 'dtf-magit-hook?)
+  (unless (boundp 'bare-repo-hook?)
   (eval-after-load 'magit
     '(let ((myconf-path (expand-file-name ".dtf")))
        (when (and (file-exists-p myconf-path)
@@ -379,7 +387,7 @@
                                (file-name-directory myconf-path))))
          (add-to-list 'magit-git-global-arguments
                       (format "--git-dir=%s" myconf-path)))))
-  (setq dtf-magit-hook? t)))
+  (setq bare-repo-hook? t)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

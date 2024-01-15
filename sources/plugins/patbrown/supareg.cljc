@@ -1,9 +1,9 @@
-(ns net.drilling.plugins.supareg
+(ns patbrown.supareg
   (:require [clojure.walk]
             [medley.core]
             [pyramid.core]
             [clojure.string]
-            [net.drilling.plugins.inflections :refer [singular plural]])
+            [patbrown.inflections :refer [singular plural]])
   #?(:bb (:import [java.io Writer])
      :clj (:import [clojure.lang IAtom IDeref IRef IReference Atom]
                    [java.io Writer])))

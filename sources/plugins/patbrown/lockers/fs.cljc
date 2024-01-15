@@ -1,13 +1,13 @@
-(ns net.drilling.plugins.lockers.fs
+(ns patbrown.lockers.fs
   (:refer-clojure :exclude [keys set get])
   (:require [babashka.fs :as fs]
             [clojure.string]
             [clojure.edn]
-            [net.drilling.plugins.supastore :refer [commit cleanup commit! supastore create-supastore
+            [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                     kw->locker-name locker-name->kw]])
-  #?(:bb (:import [net.drilling.plugins.supastore IStorageBackend IStorage])
+  #?(:bb (:import [patbrown.supastore IStorageBackend IStorage])
      :clj (:import [java.util.concurrent.locks ReentrantLock]
-                   [net.drilling.plugins.supastore IStorageBackend IStorage])))
+                   [patbrown.supastore IStorageBackend IStorage])))
 
 (defn to-path [connection locker]
   (str connection "/" locker))

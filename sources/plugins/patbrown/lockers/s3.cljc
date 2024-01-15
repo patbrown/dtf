@@ -1,17 +1,17 @@
-(ns net.drilling.plugins.lockers.s3
+(ns patbrown.lockers.s3
   #?(:bb (:require [clojure.edn]
                    [com.grzm.awyeah.client.api :as aws]
-                   [net.drilling.plugins.secrets :as ***]
-                   [net.drilling.plugins.supastore :refer [commit cleanup commit! supastore create-supastore]])
+                   [patbrown.secrets :as ***]
+                   [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore]])
      :clj (:require [clojure.edn]
                     [cognitect.aws.client.api :as aws]
                     [cognitect.aws.credentials :as credentials]
-                    [net.drilling.plugins.secrets :as ***]
-                    [net.drilling.plugins.supastore :refer [commit cleanup commit! supastore create-supastore
+                    [patbrown.secrets :as ***]
+                    [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                             kw->locker-name locker-name->kw]]))
-  #?(:bb (:import [net.drilling.plugins.supastore IStorageBackend Storage]
+  #?(:bb (:import [patbrown.supastore IStorageBackend Storage]
                    [java.io Writer Closeable])
-     :clj (:import [net.drilling.plugins.supastore IStorageBackend]
+     :clj (:import [patbrown.supastore IStorageBackend]
                    [clojure.lang IAtom IDeref IRef IMeta IObj IReference Atom]
                    (java.util.concurrent.atomic AtomicBoolean)
                    (java.util.concurrent.locks ReentrantLock Lock)

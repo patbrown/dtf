@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.supalog
+(ns patbrown.supalog
   #?(:bb (:import [java.io Writer])
      :clj (:import [clojure.lang IAtom IDeref IRef IReference Atom]
                    [java.io Writer])))

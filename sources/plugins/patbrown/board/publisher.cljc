@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.switchboard.publisher
+(ns patbrown.board.publisher
   #?(:bb (:require [clojure.core.async :as a])
      :clj (:require [com.brunobonacci.mulog.publisher :as p]
                     [com.brunobonacci.mulog.buffer :as rb]

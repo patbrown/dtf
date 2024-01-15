@@ -1,21 +1,21 @@
-(ns net.drilling.plugins.supatom
-  #?(:bb (:require [net.drilling.plugins.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
-                   [net.drilling.plugins.supastore.fs :as fs]
-                   [net.drilling.plugins.supastore.s3 :as s3]
-                   [net.drilling.plugins.supastore.postgres :as postgres]
-                   [net.drilling.plugins.supalog :refer [log->]]
-                   [net.drilling.plugins.supareg :refer [reg->]])
-     :clj (:require [net.drilling.plugins.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
-                    [net.drilling.plugins.supalog :refer [log->]]
-                    [net.drilling.plugins.supareg :refer [reg->]]
-                    [net.drilling.plugins.lockers.redis :as redis]
-                    [net.drilling.plugins.lockers.s3 :as s3]
-                    [net.drilling.plugins.lockers.postgres :as postgres]
+(ns patbrown.supatom
+  #?(:bb (:require [patbrown.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
+                   [patbrown.supastore.fs :as fs]
+                   [patbrown.supastore.s3 :as s3]
+                   [patbrown.supastore.postgres :as postgres]
+                   [patbrown.supalog :refer [log->]]
+                   [patbrown.supareg :refer [reg->]])
+     :clj (:require [patbrown.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
+                    [patbrown.supalog :refer [log->]]
+                    [patbrown.supareg :refer [reg->]]
+                    [patbrown.lockers.redis :as redis]
+                    [patbrown.lockers.s3 :as s3]
+                    [patbrown.lockers.postgres :as postgres]
                     [robertluo.fun-map :as fm])
-     :cljs (:require [net.drilling.plugins.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
-                     [net.drilling.plugins.supalog :refer [log->]]
-                     [net.drilling.plugins.supareg :refer [reg->]]
-                     [net.drilling.plugins.lockers.local :as local]
+     :cljs (:require [patbrown.supalink :refer [link-> cursor-> xform-> count-> head-> backup->]]
+                     [patbrown.supalog :refer [log->]]
+                     [patbrown.supareg :refer [reg->]]
+                     [patbrown.lockers.local :as local]
                      [robertluo.fun-map :as fm])))
 
 (def default-map

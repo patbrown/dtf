@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.lockers.postgres
+(ns patbrown.lockers.postgres
   (:refer-clojure :exclude [get set keys exists?])
   #?(:bb (:require [babashka.pods :as pods]
                    [babashka.deps :as deps]
@@ -6,24 +6,24 @@
                    [honeysql.core :as sql]
                    [clojure.string]
                    [clojure.edn]
-                   [net.drilling.plugins.secrets :as ***]
-                   [net.drilling.plugins.supastore :refer [commit commit! supastore create-supastore
+                   [patbrown.secrets :as ***]
+                   [patbrown.supastore :refer [commit commit! supastore create-supastore
                                                            kw->locker-name locker-name->kw]])
      :clj (:require [clojure.string]
                     [clojure.edn]
                     [honeysql.helpers :as h]
                     [honeysql.core :as sql]
                     [clojure.java.io :as io]
-                    [net.drilling.plugins.secrets :as ***]
-                    [net.drilling.plugins.supastore :refer [commit commit! supastore create-supastore
+                    [patbrown.secrets :as ***]
+                    [patbrown.supastore :refer [commit commit! supastore create-supastore
                                                             kw->locker-name locker-name->kw]]))
-  #?(:bb (:import [net.drilling.plugins.supastore IStorageBackend]
+  #?(:bb (:import [patbrown.supastore IStorageBackend]
                   [java.io Writer PushbackReader BufferedWriter]
                   [clojure.lang IAtom IDeref IRef IMeta IObj Atom
                    IPersistentMap PersistentTreeMap
                    IPersistentSet PersistentTreeSet
                    PersistentQueue IPersistentVector])
-     :clj (:import [net.drilling.plugins.supastore IStorageBackend]
+     :clj (:import [patbrown.supastore IStorageBackend]
                    [java.util.concurrent.locks ReentrantLock]
                    [java.io Writer PushbackReader BufferedWriter])))
 

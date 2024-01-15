@@ -111,7 +111,5 @@
 (encrypt-secrets! {:a 0})
 (decrypt-secrets!)
 (add-secret! :b 10)
-
-
 (get-secret :a)
   )

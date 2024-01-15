@@ -1,4 +1,4 @@
-(ns net.drilling.plugins.supalink
+(ns patbrown.supalink
   (:require [clojure.edn]
             [medley.core]
             [pyramid.core])

@@ -1,9 +1,9 @@
-(ns net.drilling.plugins.lockers.local
+(ns patbrown.lockers.local
   (:refer-clojure :exclude [get keys set exists?])
   (:require [clojure.edn]
-            [net.drilling.plugins.supastore :refer [commit cleanup commit! supastore create-supastore
+            [patbrown.supastore :refer [commit cleanup commit! supastore create-supastore
                                                     kw->locker-name locker-name->kw]])
-  (:use [net.drilling.plugins.supastore :only [IStorageBackend ICommiter]]))
+  (:use [patbrown.supastore :only [IStorageBackend ICommiter]]))
 
 (defn kw->locker-name [n]
   (let [s (if (string? n) n (str n))]
