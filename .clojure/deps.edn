@@ -1,5 +1,12 @@
-{
-  :aliases {
-    ;; Add cross-project aliases here
-  }
-}
+{:aliases
+ {
+
+  :portal/cli
+  {:main-opts ["-m" "portal.main"]
+   :extra-deps
+   {djblue/portal {:mvn/version "0.35.1"}
+    clj-commons/clj-yaml {:mvn/version "0.7.0"}}}
+
+
+;
+  }}
