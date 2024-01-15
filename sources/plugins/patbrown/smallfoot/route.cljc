@@ -1,34 +1,21 @@
 (ns patbrown.smallfoot.route
-  (:require [clojure.string]))
+  (:require [clojure.string]
+            [medley.core :refer [deep-merge]]))
 
-(defn deep-merge [& maps]
-  (letfn [(reconcile-keys [val-in-result val-in-latter]
-            (if (and (map? val-in-result)
-                     (map? val-in-latter))
-              (merge-with reconcile-keys val-in-result val-in-latter)
-              val-in-latter))
-          (reconcile-maps [result latter]
-            (merge-with reconcile-keys result latter))]
-    (reduce reconcile-maps maps)))
+(defn ?assoc-in
+  "Same as assoc-in, but skip the assoc if v is nil"
+  [m [k & ks] v]
+  (if v
+    (if ks
+      (update-in m [k] assoc-in ks v)
+      (assoc m k v))
+    m))
 
-(defn path->regex-path
-  [path]
-  (cond (= "/" path) "\\/"
-        (re-find #"\*" path) (-> (clojure.string/replace path #"\:.*?\*" ".*?")
-                                 (clojure.string/replace #"/" "\\/"))
-        :else
-        (->> (clojure.string/split path #"/")
-             (map #(cond
-                     (and (clojure.string/starts-with? % ":")
-                          (not (clojure.string/ends-with? % "?")))
-                     ".*"
-                     
-                     (and (clojure.string/starts-with? % ":")
-                          (clojure.string/ends-with? % "?"))
-                     "?.*?"
-                     :else
-                     %))
-             (clojure.string/join "\\/"))))
+(defn *focus-on [state path value]
+  (?assoc-in state (vec (flatten [:focus path])) value))
+
+(defn focus-on [state m]
+  (apply deep-merge (map (fn [path value] (*focus-on state path value)) (keys m) (vals m))))
 
 (defn path+uri->path-params
   [path uri]
@@ -50,21 +37,39 @@
                              (remove empty?)
                              vec)]
           (into {} (map-indexed
-                     (fn [idx item]
-                       (cond
+                    (fn [idx item]
+                      (cond
                          ; required parameter
-                         (and (clojure.string/starts-with? item ":")
-                              (not (clojure.string/ends-with? item "?")))
-                         {(keyword (subs item 1)) (get split-uri idx)}
+                        (and (clojure.string/starts-with? item ":")
+                             (not (clojure.string/ends-with? item "?")))
+                        {(keyword (subs item 1)) (get split-uri idx)}
                          ; optional parameter
-                         (and (clojure.string/starts-with? item ":")
-                              (clojure.string/ends-with? item "?")
-                              (get split-uri idx))
-                         {(keyword (-> item
-                                       (subs 0 (- (count item) 1))
-                                       (subs 1)))
-                          (get split-uri idx)}))
-                     split-path)))))
+                        (and (clojure.string/starts-with? item ":")
+                             (clojure.string/ends-with? item "?")
+                             (get split-uri idx))
+                        {(keyword (-> item
+                                      (subs 0 (- (count item) 1))
+                                      (subs 1)))
+                         (get split-uri idx)}))
+                    split-path)))))
+
+(defn path->regex-path
+  [path]
+  (cond (= "/" path) "\\/"
+        (re-find #"\*" path) (-> (clojure.string/replace path #"\:.*?\*" ".*?")
+                                 (clojure.string/replace #"/" "\\/"))
+        :else
+        (->> (clojure.string/split path #"/")
+             (map #(cond
+                     (and (clojure.string/starts-with? % ":")
+                          (not (clojure.string/ends-with? % "?")))
+                     ".*"                     
+                     (and (clojure.string/starts-with? % ":")
+                          (clojure.string/ends-with? % "?"))
+                     "?.*?"
+                     :else
+                     %))
+             (clojure.string/join "\\/"))))
 
 (defn match-route
   [routes uri request-method]
@@ -77,20 +82,25 @@
     (when route
       (dissoc route :regex-path))))
 
-(defn route+req->response
-  [{:keys [path response]} {:keys [uri] :as req}]
-  (cond
-    (map? response) response
-    (fn? response) (response (-> {:params (path+uri->path-params path uri)}
-                                 (deep-merge req)))
-    :else
-    {:status 404
-     :body "Not found."}))
+(defn match-route-interceptor [{:keys [ctx request] :as state}]
+  (let [{:keys [uri request-method]} request
+        {:keys [routes]} ctx
+        {:keys [action chain path] :as match} (match-route routes uri request-method)
+        params (path+uri->path-params path uri)]
+    (focus-on state {:uri uri
+                     :method request-method
+                     :match match
+                     :path path
+                     :action action
+                     :chain chain
+                     :params params})
+    #_(-> state
+          (?assoc-in [:focus :uri] uri)
+          (?assoc-in [:focus :method] request-method)
+          (?assoc-in [:focus :match] match)
+          (?assoc-in [:focus :path] path)
+          (?assoc-in [:focus :action] action)
+          (?assoc-in [:focus :chain] chain)
+          (?assoc-in [:focus :params] params))))
 
-(defn route
-  [routes {:keys [uri request-method] :as req}]
-  (if-let [route (match-route routes uri request-method)]
-    (route+req->response route req)
-    (route+req->response (->> routes
-                              (filter #(= :not-found (:path %)))
-                              first) req)))
+
