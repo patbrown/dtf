@@ -2,21 +2,6 @@
   (:require [clojure.string]
             [medley.core :refer [deep-merge]]))
 
-(defn ?assoc-in
-  "Same as assoc-in, but skip the assoc if v is nil"
-  [m [k & ks] v]
-  (if v
-    (if ks
-      (update-in m [k] assoc-in ks v)
-      (assoc m k v))
-    m))
-
-(defn *focus-on [state path value]
-  (?assoc-in state (vec (flatten [:focus path])) value))
-
-(defn focus-on [state m]
-  (apply deep-merge (map (fn [path value] (*focus-on state path value)) (keys m) (vals m))))
-
 (defn path+uri->path-params
   [path uri]
   (cond (= "/" path)
@@ -82,25 +67,20 @@
     (when route
       (dissoc route :regex-path))))
 
-(defn match-route-interceptor [{:keys [ctx request] :as state}]
+(defn route-view [{:keys [ctx request] :as state}]
   (let [{:keys [uri request-method]} request
         {:keys [routes]} ctx
         {:keys [action chain path] :as match} (match-route routes uri request-method)
         params (path+uri->path-params path uri)]
-    (focus-on state {:uri uri
-                     :method request-method
-                     :match match
-                     :path path
-                     :action action
-                     :chain chain
-                     :params params})
-    #_(-> state
-          (?assoc-in [:focus :uri] uri)
-          (?assoc-in [:focus :method] request-method)
-          (?assoc-in [:focus :match] match)
-          (?assoc-in [:focus :path] path)
-          (?assoc-in [:focus :action] action)
-          (?assoc-in [:focus :chain] chain)
-          (?assoc-in [:focus :params] params))))
+    {:uri uri
+     :method request-method
+     :match match
+     :path path
+     :action action
+     :chain chain
+     :params params}))
 
-
+(def focus-on-route-interceptor
+  {:name :focus-on-route
+   :enter (fn [state]
+            (assoc-in state [:focus :route] (route-view state)))})

@@ -21,8 +21,9 @@
     ([req]
      (let [state (->state ctx req)
            queue (list #(execute % (-> ctx :chains :router))
-                       #(route/match-route-interceptor %)
-                       #(execute % (-> % :focus :chain)))
+                       #(execute % [route/focus-on-route-interceptor])
+                       #_#(route/match-route-interceptor %)
+                       #(execute % (-> % :focus :route :chain)))
            results (reduce (fn [s f] (f s)) state queue)
            {:keys [response focus]} results
            _ (tap> results)]

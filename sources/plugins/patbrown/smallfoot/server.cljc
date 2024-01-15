@@ -23,20 +23,23 @@
                                  :body "Hi there!"})}
              {:path "/hello/:who"
               :method :get
-              :action (fn [req]
+              :action (fn [state]
                         {:status 200
-                         :body (str "Hello, " (:who (:params req)))})}
+                         :body (str "Hello, " (-> state
+                                                  :focus
+                                                  :route
+                                                  :params
+                                                  :who))})}
              {:path "/chain/:who"
               :method :get
               :chain [{:name :dude
                        :enter (fn [state]
                                 (assoc state :response {:status 200
-                                                      :body (str "Hello, " (-> state
-                                                                               :focus
-                                                                               :params
-                                                                               :who))}))}]}])
-
-(comment )
+                                                        :body (str "Hello, " (-> state
+                                                                                 :focus
+                                                                                 :route
+                                                                                 :params
+                                                                                 :who))}))}]}])
 
 (def ctx {:server {:port  3000
                    :host "0.0.0.0"
