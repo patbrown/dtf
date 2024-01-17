@@ -1,4 +1,4 @@
-(ns patbrown.smallfoot.route
+(ns tiny.route
   (:require [clojure.string]
             [medley.core :refer [deep-merge]]))
 

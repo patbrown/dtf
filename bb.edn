@@ -9,6 +9,7 @@
         metosin/reitit {:mvn/version "0.7.0-alpha7"}
         com.brunobonacci/where {:mvn/version "0.5.6"}
         com.cognitect.aws/s3 {:mvn/version "848.2.1413.0"}
+        exoscale/coax {:mvn/version "1.0.2"}
         com.grzm/awyeah-api {:git/url "https://github.com/grzm/awyeah-api"
                              :git/sha "e5513349a2fd8a980a62bbe0d45a0d55bfcea141"}
         org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"

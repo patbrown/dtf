@@ -152,3 +152,24 @@
 (defn group-counts [k seq]
   (->> (group-as-map-keys k seq)
        (medley.core/map-vals (fn [v] (count v)))))
+
+(defn nss-with-meta-key? [k]
+          (let [ns-metas (->> (all-ns) (map (fn [n] {n (meta n)})) (apply merge))
+                ns-with-key (keys (medley.core/filter-vals (fn [m] (contains? (set (keys m)) k)) ns-metas))]
+            (map (comp symbol str) ns-with-key)))
+
+
+
+(defn gm [] (->> (all-ns) (mapcat ns-interns) (keep #(-> % second meta))))
+(defn meta-grab
+  "Multi-arrity fn taking all meta and threading it through up to 4 filters to narrow results."
+  ([] (gm))
+  ([k]
+   (->> (gm) (filter k)))
+  ([k1 k2]
+   (->> (gm) (filter k1) (filter k2)))
+  ([k1 k2 k3]
+   (->> (gm) (filter k1) (filter k2) (filter k3)))
+  ([k1 k2 k3 k4]
+   (->> (gm) (filter k1) (filter k2) (filter k3) (filter k4))))
+
