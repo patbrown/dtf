@@ -1,4 +1,4 @@
-{:paths ["src" "resources" "sources/fjck/src" "sources/fjck/resources" "sources/plugins" "sources/dev"]
+{:paths ["tiny" "src" "resources" "sources/fjck/src" "sources/fjck/resources" "sources/plugins" "sources/dev"]
  :deps {;; PLUGINS
         #_#_io.github.patbrown/secrets {:git/sha "5ab81b7f5c5e6df25ea56fdee96b790c998c529e"}
         #_#_io.github.patbrown/switchboard {:git/sha "6fe731783ff3cea1e53c99bb3219bfdba19fce28"}

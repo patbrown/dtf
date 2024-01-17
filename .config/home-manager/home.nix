@@ -40,6 +40,7 @@ pkgs.jdk11
 pkgs.nodejs
 pkgs.s3cmd
 pkgs.tmux
+pkgs.unzip
 pkgs.wget
 
     # # It is sometimes useful to fine-tune packages, for example, by applying overrides. You can do that 
