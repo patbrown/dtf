@@ -15,15 +15,6 @@
 (pods/load-pod 'org.babashka/postgresql "0.1.0")
 (require '[pod.babashka.postgresql :as jdbc])
 
-(defn rm-kw-ns
-  [thing]
-  (cond
-    (keyword? thing) (keyword (name thing))
-    (map? thing) (medley.core/map-keys (comp keyword name) thing)
-    (or (set? thing)
-        (vector? thing)) (map rm-kw-ns thing)
-    :else (println (str "rm-key-namespaces takes keywords, maps, set, and vectors. You supplied: " thing ". Which is a " (type thing)))))
-
 (defn exec! [{:keys [db statement return-with] :as ctx}]
   (let [raw-statement (clojure.core/get statements/manifest statement)
         sql (raw-statement ctx)
@@ -224,11 +215,11 @@
 
 (defn link->
   ([{:keys [atom-ref get-with set-with meta validate-with watches deref-with check-with id]}]
-   (Supalink. atom-ref meta validate-with watches get-with set-with deref-with check-with id))
+   (Link. atom-ref meta validate-with watches get-with set-with deref-with check-with id))
   ([atom-ref get-with] (link-> atom-ref get-with nil {}))
   ([atom-ref get-with set-with] (link-> atom-ref get-with set-with {}))
   ([atom-ref get-with set-with {:keys [meta validate-with watches deref-with check-with id]}]
-   (Supalink. atom-ref meta validate-with watches get-with set-with deref-with check-with id)))
+   (Link. atom-ref meta validate-with watches get-with set-with deref-with check-with id)))
 
 (defn cursor->
   ([{:keys [atom-ref path]}] (cursor-> atom-ref path))
@@ -273,4 +264,3 @@
 
 (defn link? [thing]
   (instance? Link thing))
-

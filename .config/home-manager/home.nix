@@ -37,6 +37,7 @@ pkgs.git-lfs
 pkgs.gum
 pkgs.hstr
 pkgs.jdk11
+pkgs.leiningen
 pkgs.nodejs
 pkgs.s3cmd
 pkgs.tmux

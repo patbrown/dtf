@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "taskbook": "^0.3.0"
+  },
+  "devDependencies": {
+    "shadow-cljs": "^2.26.5"
   }
 }

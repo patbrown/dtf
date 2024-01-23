@@ -15,6 +15,7 @@
 
 ;; VT
 (s/def :vt/qkw qualified-keyword?)
+(s/def :vt/m map?)
 (s/def :vt/keyword keyword?)
 (s/def :vt/uuid uuid?)
 (s/def :vt/boolean boolean?)
@@ -56,8 +57,9 @@
 (s/def :tag/label :vt/string)
 (s/def :tag/id :vt/uuid)
 (s/def :tag/value :vt/string)
+(s/def :ui.component/context :vt/m)
 
 (def specs (set (keys (s/registry))))
 (def specs-map
   (apply merge (map (fn [s] {s (s/form s)}) specs)))
-specs-map
+

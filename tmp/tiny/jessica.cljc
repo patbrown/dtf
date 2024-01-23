@@ -3,13 +3,27 @@
             [tiny.jessica.attrs :as attrs]
             [tiny.jessica.dts :as dts]
             [tiny.jessica.instance :as instance]
+            [tiny.jessica.interceptors :as interceptor]
             [tiny.jessica.specs :as specs]
             [tiny.jessica.tags :as tags]
             [tiny.jessica.traits :as traits]
             [tiny.db :refer [link-> backup-> cursor->]]
             [tiny.focus :as focus]))
 
-(def manifest (apply merge (flatten [attrs/manifest dts/manifest instance/manifest specs/manifest tags/manifest traits/manifest])))
+(def manifest (apply merge (flatten [
+                                     attrs/manifest
+                                     dts/manifest
+                                     instance/manifest
+                                     interceptor/manifest
+                                     specs/manifest
+                                     tags/manifest
+                                     traits/manifest
+                                     ])))
+
+
+(comment
+
+  (def manifest (apply merge (flatten [attrs/manifest dts/manifest instance/manifest specs/manifest tags/manifest traits/manifest])))
 (def a {:name :a :enter (fn [ctx] (assoc ctx :AAA 999))})
 (def ^:dynamic *manifest* (atom manifest))
 
@@ -47,10 +61,12 @@
 
 
 
-(defn MAGIC! []
+(defn Breathe! []
   (execute @*manifest* chains :manifest-destiny/jessica))
 
-(MAGIC!)
+(Breathe!)
+
+
 
 (defn get-attribute-spec [{:keys [attribute] :as ctx}]
   (let [sid (get-in ctx [:spec/id attribute])
@@ -108,3 +124,8 @@
 
 ;
   )
+
+
+
+  )
+

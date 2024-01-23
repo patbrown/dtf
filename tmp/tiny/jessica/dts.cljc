@@ -6,7 +6,7 @@
    :dt/req [:many :ref]
    :dt/opt [:many :ref]
    :dt/spec [:one :keyword]
-   :dt/traits [:many :ref]
+   :dt/traits [:many :keyword]
    :dt/tags [:many :ref]})
 
 (def dt

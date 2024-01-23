@@ -173,3 +173,4 @@
   ([k1 k2 k3 k4]
    (->> (gm) (filter k1) (filter k2) (filter k3) (filter k4))))
 
+(defn fv [things] (vec (flatten things)))

@@ -1,6 +1,6 @@
 ;; Straight outta xiana
 (ns tiny.ix
-  (:require [tiny.focus :refer [filter-where]]))
+  (:require [tiny.focus :refer [filter-where fv]]))
 
 (defn- -concat
   [{except-interceptors :except
@@ -65,10 +65,18 @@
         :else state))))
 
 (defn execute
-  [state chains chain]
-  (let [interceptors (-concat
-                      (get-in state [:request-data :interceptors])
-                      (-> (filter-where [:chain/id = chain] chains)
-                          first :chain/links))
-        action       (action->try (get-in state [:request-data :action] identity))]
-    (looper state interceptors action)))
+  ([state chain] nil)
+  ([state chains chain]
+   (let [interceptors (-concat
+                       (get-in state [:request-data :interceptors])
+                       (-> (filter-where [:chain/id = chain] chains)
+                           first :chain/links))
+         action       (action->try (get-in state [:request-data :action] identity))]
+     (looper state interceptors action))))
+
+(defn ezex
+  [ctx]
+  (let [chain (-> ctx :action :ezex :chain)
+        chain (get-in ctx (fv [chain :chain]))]
+    (execute ctx chain)))
+

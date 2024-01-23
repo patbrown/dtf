@@ -70,14 +70,14 @@
 (defn route-view [{:keys [ctx request] :as state}]
   (let [{:keys [uri request-method]} request
         {:keys [routes]} ctx
-        {:keys [action chain path] :as match} (match-route routes uri request-method)
+        {:keys [action workflow path] :as match} (match-route routes uri request-method)
         params (path+uri->path-params path uri)]
     {:uri uri
      :method request-method
      :match match
      :path path
      :action action
-     :chain chain
+     :workflow workflow
      :params params}))
 
 (def focus-on-route-interceptor
@@ -98,13 +98,13 @@
                                                   :route
                                                   :params
                                                   :who))})}
-             {:path "/chain/:who"
+             {:path "/workflow/:who"
               :method :get
-              :chain [{:name :dude
-                       :enter (fn [state]
-                                (assoc state :response {:status 200
-                                                        :body (str "Hello, " (-> state
-                                                                                 :focus
-                                                                                 :route
-                                                                                 :params
-                                                                                 :who))}))}]}])
+              :workflow [{:name :dude
+                          :enter (fn [state]
+                                   (assoc state :response {:status 200
+                                                           :body (str "Hello, " (-> state
+                                                                                    :focus
+                                                                                    :route
+                                                                                    :params
+                                                                                    :who))}))}]}])
