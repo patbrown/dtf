@@ -85,3 +85,7 @@ if ! shopt -oq posix; then
 fi
 
 bind TAB:menu-complete
+
+function ke () {
+    for pid in $(ps -ef | awk '/emacs/ {print $2}'); do kill -9 $pid; done;
+}
