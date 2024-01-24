@@ -365,12 +365,12 @@
 
 (global-set-key (kbd "C-v") 'backward-char)
 
-(defun mount-bare-git-repo (work-tree git-dir)
-  (interactive)
-  (add-to-list 'magit-git-global-arguments (format "--work-tree=%s" (expand-file-name work-tree)))
-  (add-to-list 'magit-git-global-arguments (format "--git-dir=%s" (directory-file-name git-dir))))
+;; (defun mount-bare-git-repo (work-tree git-dir)
+;;   (interactive)
+;;   (add-to-list 'magit-git-global-arguments (format "--work-tree=%s" (expand-file-name work-tree)))
+;;   (add-to-list 'magit-git-global-arguments (format "--git-dir=%s" (directory-file-name git-dir))))
 
-(defun mount-dtf () (mount-bare-git-repo ".dtf" "/home/pat"))
+;; (defun mount-dtf () (mount-bare-git-repo ".dtf" "/home/pat"))
 
 (defun mount-dtf ()
   (interactive)
