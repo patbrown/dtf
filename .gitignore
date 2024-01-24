@@ -15,7 +15,6 @@ node_modules
 .cache
 .nix-profile
 .nix-defexpr
-.tmux.conf
 .tmux/plugins/tmux-continuum/
 .tmux/plugins/tmux-nova/
 .tmux/plugins/tmux-resurrect/
