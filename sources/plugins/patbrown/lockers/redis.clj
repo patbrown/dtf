@@ -1,5 +1,5 @@
 (ns patbrown.lockers.redis
-  (:refer-clojure :exclude [get set])
+  (:refer-clojure :exclude [get set keys])
   (:require [taoensso.carmine :as car]
             [patbrown.secrets :as ***]
             [clojure.core.async :as a]
@@ -12,7 +12,7 @@
   {:pool (car/connection-pool {})
    :spec {:uri (***/get-secret ::connection-string)
           :ssl-fn :default}})
- 
+
 (defmacro with-redis [& body] `(car/wcar config ~@body))
 
 (defn get

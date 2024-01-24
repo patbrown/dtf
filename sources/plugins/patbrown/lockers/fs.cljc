@@ -58,7 +58,7 @@
     (let [f (fn [state]
               (set connection locker (write-with (if (= data :deref) @state data)))
               state)]
-      (commit! atom-ref f data)))
+      (commit! this f (fn [e] (println e)))))
   (cleanup [_]
     (or (delete connection locker)
         (throw (Exception. (str "Could not delete " (str connection "/" locker)))))))
@@ -66,7 +66,8 @@
 (def default-read-with  clojure.edn/read-string)
 (def default-write-with str)
 (def default-config {:backing :file
-                     :connection "resources/code-as-data"
+                     :connection "resources/atom-store"
+                     :locker (keyword "motherless" (str "unloved-" (rand-int 100000000)))
                      :init {}
                      :read-with default-read-with
                      :write-with default-write-with })
@@ -87,3 +88,14 @@
   (if-not (map? m)
     (supastore (assoc default-config :locker m))
     (supastore (merge default-config m))))
+
+(def a (locker (assoc default-config :locker :a/b)))
+(type a)
+(swap! a assoc :a 34)
+(def b (supastore (assoc default-config :locker :a/b)))
+
+
+(swap! a assoc :a 99)
+(let [{:keys [connection locker read-with write-with]} default-config]
+  (merge default-config
+                           {:make-backend (partial ->FileBackend connection locker read-with write-with)}))

@@ -1,4 +1,4 @@
-(ns patbrown.supastore
+(ns patbrown.smallfoot.db.impl
   (:require [clojure.edn]
             [clojure.string])
   #?(:bb (:import [java.io Writer Closeable])
@@ -8,16 +8,17 @@
                    [java.io Writer Closeable])))
 
 (defn kw->locker-name [n]
-  (if (string? n)
-    n
-    (let [n0 (str (namespace n) "_NDNMSP_" (name n))
-          n1 (if (clojure.string/starts-with? n0 "_") (clojure.string/replace-first n0 #"\_" "") n0)
-          n2 (clojure.string/replace  n1 #"\-" "_NDDASH_")
-          n3 (clojure.string/replace n2 #"\?" "_NDQMARK_")
-          n4 (clojure.string/replace n3 #"\$" "_NDDOLLAR_")
-          n5 (clojure.string/replace n4 #"\!" "_NDBANG_")
-          table-name (clojure.string/replace n5 #"\." "_NDDOT_")]
-      table-name)))
+  (if (map? n) (kw->locker-name (:locker n))
+      (if (string? n)
+        n
+        (let [n0 (str (namespace n) "_NDNMSP_" (name n))
+              n1 (if (clojure.string/starts-with? n0 "_") (clojure.string/replace-first n0 #"\_" "") n0)
+              n2 (clojure.string/replace  n1 #"\-" "_NDDASH_")
+              n3 (clojure.string/replace n2 #"\?" "_NDQMARK_")
+              n4 (clojure.string/replace n3 #"\$" "_NDDOLLAR_")
+              n5 (clojure.string/replace n4 #"\!" "_NDBANG_")
+              table-name (clojure.string/replace n5 #"\." "_NDDOT_")]
+          table-name))))
 
 (defn locker-name->kw [n]
   (if (keyword? n)
@@ -30,9 +31,9 @@
           n5 (clojure.string/split n4 #"_NDNMSP_")]
       (apply keyword n5))))
 
-
 ;; Storage Protocol is the same across platforms
 (defprotocol IStorageBackend
+  (init [this])
   (snapshot [this])
   (commit   [this] [this x])
   (cleanup  [this]))
@@ -83,6 +84,7 @@
 #?(:bb nil
    :clj (defmacro lock? [l]
           `(instance? Lock ~l)))
+
 #?(:bb nil
    :clj (defn releaser []
           (let [released? (AtomicBoolean. false)]
@@ -275,33 +277,32 @@
           (.write w "}")))
 
 #?(:bb
-   (defn create-supastore
+   (defn generic-locker
      [{:keys [make-backend init]}]
      (let [raw-atom (atom nil)
            backend (make-backend raw-atom)
            supastore (Supastore. backend raw-atom)
            contents (snapshot backend)]
        (if (nil? contents)
-         (reset! raw-atom init)
-         (reset! raw-atom contents))
-       supastore))
+         (reset! supastore init)
+         (reset! supastore contents))))
 
    :clj
-   (defn create-supastore
+   (defn generic-locker
      [{:keys [make-backend lock init] :or {init {}
                                            lock (ReentrantLock.)}}]
      (assert (lock? lock) "The <lock> provided is NOT a valid implementation of `java.util.concurrent.locks.Lock`!")
-     (let [raw-atom (atom nil)
-           backend (make-backend raw-atom)
-           supastore (Supastore. backend raw-atom lock (releaser))
+     (let [atom-ref (atom nil)
+           backend (make-backend {:atom-ref atom-ref})
+           supastore (Supastore. backend atom-ref lock (releaser))
            _ (commit backend (str {}))
            contents (snapshot backend)]
        (if (nil? contents)
-         (reset! raw-atom init)
-         (reset! raw-atom contents))
+         (reset! atom-ref init)
+         (reset! atom-ref contents))
        supastore))
 
-   :cljs (defn create-supastore
+   :cljs (defn generic-locker
            [{:keys [make-backend init] :or {init {}}}]
            (let [raw-atom (atom nil)
                  backend (make-backend raw-atom)
@@ -309,8 +310,7 @@
                  _ (commit backend (str {}))
                  contents (snapshot backend)]
              (if (nil? contents)
-               (reset! raw-atom init)
-               (reset! raw-atom contents))
-             supastore)))
+               (reset! supastore init)
+               (reset! supastore contents)))))
 
-(defmulti supastore :backing)
+(defmulti locker :backing)

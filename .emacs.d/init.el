@@ -68,7 +68,7 @@
     (fringe-mode -1))
 (display-line-numbers-mode 1)
 (setq linum-format "%d ")
-(setq display-line-numbers-mode t)
+(global-display-line-numbers-mode t)
 (setq frame-title-format "%b")
 (show-paren-mode 1)
 (global-hl-line-mode 1)
@@ -365,12 +365,12 @@
 
 (global-set-key (kbd "C-v") 'backward-char)
 
-(defun mount-bare-git-repo (work-tree git-dir)
-  (interactive)
-  (add-to-list 'magit-git-global-arguments (format "--work-tree=%s" (expand-file-name work-tree)))
-  (add-to-list 'magit-git-global-arguments (format "--git-dir=%s" (directory-file-name git-dir))))
+;; (defun mount-bare-git-repo (work-tree git-dir)
+;;   (interactive)
+;;   (add-to-list 'magit-git-global-arguments (format "--work-tree=%s" (expand-file-name work-tree)))
+;;   (add-to-list 'magit-git-global-arguments (format "--git-dir=%s" (directory-file-name git-dir))))
 
-(defun mount-dtf () (mount-bare-git-repo ".dtf" "/home/pat"))
+;; (defun mount-dtf () (mount-bare-git-repo ".dtf" "/home/pat"))
 
 (defun mount-dtf ()
   (interactive)
@@ -388,6 +388,13 @@
          (add-to-list 'magit-git-global-arguments
                       (format "--git-dir=%s" myconf-path)))))
   (setq bare-repo-hook? t)))
+
+
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq tab-width 2)
+            (setq js-indent-level 2)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
