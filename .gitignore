@@ -116,6 +116,6 @@ flycheck_*.el
 /.secrets/
 /.config/karabiner/
 /.config/iterm2/
-
+/.expo/
 
 /.deps.clj/

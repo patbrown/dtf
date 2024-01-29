@@ -1,4 +1,5 @@
 alias h='hstr'
+alias j='hstr'
 alias dtf='/usr/bin/git --git-dir=/home/pat/.dtf/ --work-tree=/home/pat'
 alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
 ### ALIAS
@@ -89,3 +90,7 @@ bind TAB:menu-complete
 function ke () {
     for pid in $(ps -ef | awk '/emacs/ {print $2}'); do kill -9 $pid; done;
 }
+function kd () {
+    for pid in $(ps -ef | awk '/defunct/ {print $2} {print $3}'); do kill -9 $pid; done;
+}
+

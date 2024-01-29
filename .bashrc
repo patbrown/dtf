@@ -155,8 +155,6 @@ if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
 # if this is interactive shell, then bind 'kill last command' to Ctrl-x k
 if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
 export HSTR_TIOCSTI=y
-grep -wq '^source /etc/profile.d/bash_completion.sh' ~/.bashrc || echo 'source /etc/profile.d/bash_completion.sh'>>~/.bashrc
-source /etc/bash_completion.d/git 
+
 source /usr/share/bash-completion/completions/git
-source /etc/profile.d/bash_completion.sh
 set completion-prefix-display-length 2
