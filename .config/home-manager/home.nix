@@ -25,6 +25,7 @@
 pkgs.awscli
 pkgs.babashka
 pkgs.bash-completion
+pkgs.bashInteractive
 pkgs.bun
 pkgs.clojure
 pkgs.clojure-lsp
