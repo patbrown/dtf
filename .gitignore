@@ -119,3 +119,4 @@ flycheck_*.el
 /.expo/
 
 /.deps.clj/
+/.tmux/plugins/tmux-session-wizard/

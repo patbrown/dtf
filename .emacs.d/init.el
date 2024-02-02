@@ -115,7 +115,6 @@
 (use-package counsel-projectile :straight t :after projectile :config (counsel-projectile-mode 1))
 (use-package discover :straight t :defer t :config (global-discover-mode 1))
 (use-package discover-my-major :straight t :defer t :config (global-set-key (kbd "C-h C-m") 'discover-my-major))
-(use-package flycheck-clj-kondo :straight t :defer t :config (require 'flycheck-clj-kondo))
 (use-package lsp-ivy :straight t)
 (use-package lsp-ui :straight t :commands lsp-ui-mode)
 (use-package magit :straight t)
@@ -362,7 +361,6 @@
   "Reload the init file."
   (interactive)
   (load-file "~/.emacs.d/init.el"))
-
 
 (global-set-key (kbd "C-v") 'backward-char)
 

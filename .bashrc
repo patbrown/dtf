@@ -5,7 +5,7 @@ case $- in
 esac
 
 # Path to your oh-my-bash installation.
-export OSH='$HOME/.oh-my-bash'
+export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
@@ -69,7 +69,7 @@ COMPLETION_WAITING_DOTS="true"
 # OMB_DEFAULT_ALIASES="check"
 
 # Would you like to use another custom folder than $OSH/custom?
-OSH_CUSTOM=$HOME/.config/bash
+OSH_CUSTOM="$HOME/.config/bash"
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
@@ -110,7 +110,7 @@ completions=(
 #      plugins+=(tmux-autoattach)
 #  fi
 
-source "$OSH"/oh-my-bash.sh
+source "$OSH/oh-my-bash.sh"
 source "$HOME/.config/bash/autopair.sh"
 export BASH_AUTOPAIR_BACKSPACE=1
 
@@ -155,6 +155,8 @@ if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
 # if this is interactive shell, then bind 'kill last command' to Ctrl-x k
 if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
 export HSTR_TIOCSTI=y
-
+ 
 source /usr/share/bash-completion/completions/git
 set completion-prefix-display-length 2
+
+eval "$(zoxide init bash)"

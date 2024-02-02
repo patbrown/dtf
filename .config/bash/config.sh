@@ -1,4 +1,3 @@
-alias h='hstr'
 alias j='hstr'
 alias dtf='/usr/bin/git --git-dir=/home/pat/.dtf/ --work-tree=/home/pat'
 alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
@@ -24,7 +23,8 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
-
+alias h="export FZF_DEFAULT_COMMAND=\"fd --type f --hidden\" ; fzf | emacsclient -t"
+bind -x '"\C-h":h'
 export GPGUSER="Pat Brown"
 export EMAIL="pat@drilling.net"
 export EDITOR="ec"
@@ -92,5 +92,15 @@ function ke () {
 }
 function kd () {
     for pid in $(ps -ef | awk '/defunct/ {print $2} {print $3}'); do kill -9 $pid; done;
+}
+
+function f () {
+    z $(dirname $(fd --type file | fzf));
+    ec .;
+}
+
+function F () {
+    z $(dirname $(fd -p ~ --type file | fzf));
+    ec .;
 }
 
