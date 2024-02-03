@@ -120,3 +120,8 @@ flycheck_*.el
 
 /.deps.clj/
 /.tmux/plugins/tmux-session-wizard/
+/.oh-my-zsh/
+/.zcompdump
+/.zcompdump-dtf-5.9
+/.zcompdump-dtf-5.9.zwc
+/.zgen/

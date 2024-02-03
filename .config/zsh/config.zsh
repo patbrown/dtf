@@ -26,7 +26,6 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 alias h="export FZF_DEFAULT_COMMAND=\"fd --type f --hidden\" ; fzf | emacsclient -t"
-bind -x '"\C-h":h'
 export GPGUSER="Pat Brown"
 export EMAIL="pat@drilling.net"
 export EDITOR="ec"
@@ -79,16 +78,6 @@ function title {
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/bin:$PATH"
 
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-bind TAB:menu-complete
-
 function ke () {
     for pid in $(ps -ef | awk '/emacs/ {print $2}'); do kill -9 $pid; done;
 }
@@ -106,6 +95,14 @@ function F () {
     ec .;
 }
 
+# HSTR configuration - add this to ~/.bashrc
+alias hh=hstr                    # hh to be alias for hstr
+export HSTR_CONFIG=hicolor       # get more colors
+export HISTCONTROL=ignorespace   # leading space hides commands from history
+export HISTFILESIZE=10000        # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+
+eval "$(zoxide init zsh)"
 systemctl start --user dtf-emacs-daemon.service
 systemctl start --user fjck-emacs-daemon.service
 systemctl enable --user dtf-emacs-daemon.service

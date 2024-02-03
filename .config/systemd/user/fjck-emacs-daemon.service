@@ -1,0 +1,13 @@
+[Unit]
+Description=Emacs text editor (fjck-daemon)
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=forking
+ExecStart=/home/pat/.nix-profile/bin/emacs --daemon=fjck
+ExecStop=/home/pat/.nix-profile/bin/emacsclient -s fjck --eval "(kill-emacs)"
+Environment=EMACSDAEMON=fjck
+Restart=no
+
+[Install]
+WantedBy=default.target

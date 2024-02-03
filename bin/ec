@@ -2,4 +2,4 @@
 if ! ps h -o pid,args -C emacs | grep -q -- --daemon ; then
     emacs --daemon
 fi
-emacsclient -c "$@"
+emacsclient -t "$@"

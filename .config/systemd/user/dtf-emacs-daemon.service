@@ -1,0 +1,13 @@
+[Unit]
+Description=Emacs text editor (dtf-daemon)
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=forking
+ExecStart=/home/pat/.nix-profile/bin/emacs --daemon=dtf
+ExecStop=/home/pat/.nix-profile/bin/emacsclient -s dtf --eval "(kill-emacs)"
+Environment=EMACSDAEMON=dtf
+Restart=no
+
+[Install]
+WantedBy=default.target

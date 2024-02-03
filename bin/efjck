@@ -1,0 +1,5 @@
+#!/bin/sh
+if ! ps h -o pid,args -C emacs | grep -q =fjck ; then
+    emacs --daemon=fjck
+fi
+emacsclient -s fjck -t "$@"

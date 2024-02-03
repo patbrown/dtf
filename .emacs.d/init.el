@@ -119,6 +119,29 @@
 (use-package lsp-ui :straight t :commands lsp-ui-mode)
 (use-package magit :straight t)
 (use-package markdown-mode :straight t :defer t)
+(use-package minions :straight t :config (keymap-global-set "C-c +" #'minions-minor-modes-menu))
+(use-package mood-line
+  :straight t
+  ;; Enable mood-line
+  :config
+  (mood-line-mode)
+
+  ;; Use pretty Fira Code-compatible glyphs
+  :custom
+  (mood-line-glyph-alist mood-line-glyphs-fira-code)
+  (setq mood-line-format mood-line-format-default-extended)
+  (setq mood-line-format
+      (mood-line-defformat
+       :left
+       (((mood-line-segment-buffer-status) . " ")
+        ((mood-line-segment-buffer-name)   . " : ")
+        (mood-line-segment-major-mode))
+       :right
+       (((mood-line-segment-scroll)             . " ")
+        ((mood-line-segment-cursor-position)    . "  ")
+        ((when (mood-line-segment-checker) "|") . "  ")
+        ((mood-line-segment-checker)            . "  ")))))
+
 (use-package multiple-cursors :straight t :defer t)
 (use-package paredit :straight t :ensure t
   :init
@@ -395,6 +418,12 @@
             (make-local-variable 'js-indent-level)
             (setq tab-width 2)
             (setq js-indent-level 2)))
+
+(when (string-equal (getenv "EMACSDAEMON") "dtf")
+  (setq dtf? t))
+
+(when (string-equal (getenv "EMACSDAEMON") "fjck")
+  (setq fjck? t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

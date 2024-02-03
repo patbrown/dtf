@@ -1,0 +1,5 @@
+#!/bin/sh
+if ! ps h -o pid,args -C emacs | grep -q =dtf ; then
+    emacs --daemon=dtf
+fi
+emacsclient -s dtf -t "$@"
