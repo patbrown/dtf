@@ -42,6 +42,7 @@ pkgs.nerdfonts
 pkgs.nodejs
 pkgs.s3cmd
 pkgs.tmux
+pkgs.tmuxifier
 pkgs.unzip
 pkgs.watchman
 pkgs.wget

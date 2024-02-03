@@ -125,3 +125,4 @@ flycheck_*.el
 /.zcompdump-dtf-5.9
 /.zcompdump-dtf-5.9.zwc
 /.zgen/
+/.tmux/plugins/tmuxifier/

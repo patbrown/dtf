@@ -1,7 +1,6 @@
+### ALIAS
 alias j='hstr'
 alias dtf='/usr/bin/git --git-dir=/home/pat/.dtf/ --work-tree=/home/pat'
-alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
-### ALIAS
 alias di='export ISS=$(gh issue list | fzf | cut -d$'"'"'\t'"'"' -f1) && gh issue develop $ISS -b canary --checkout'
 alias fjck_emacs_daemon='emacs --daemon=fjck'
 alias dtf_emacs_daemon='emacs --daemon=dtf'
@@ -28,12 +27,11 @@ alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 alias h="export FZF_DEFAULT_COMMAND=\"fd --type f --hidden\" ; fzf | emacsclient -t"
 export GPGUSER="Pat Brown"
 export EMAIL="pat@drilling.net"
-export EDITOR="ec"
+export EDITOR="efjck"
 export FZF_DEFAULT_OPTS="--extended"
 export ZSH_DISABLE_COMPFIX=true
 export CLICOLOR=1
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
-export EA_EDITOR='emacsclient -a "" -c'
 export GRAALVM_HOME=$HOME/bin/graalvm-ce-java11-22.3.1
 export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 export FZF_DEFAULT_OPTS=
@@ -57,8 +55,8 @@ bb -f "$1"
 function run-main () {
 clojure -M -m "$1"
 }
-alias ef="fd . --exclude={.get,node_modules,tmp,target} --type f | fzf --header 'ENTER to edit' --reverse --preview='pistol {}' --bind 'ENTER:execute(emacsclient -t {})' --margin=3%"
-alias ed="fd . --exclude={.get,node_modules,tmp,target} --type d | fzf --header 'ENTER to edit' --reverse --preview='pistol {}' --bind 'ENTER:execute(emacsclient -t {})' --margin=3%"
+alias ef="fd . --exclude={.git,node_modules,tmp,target} --type f | fzf --header 'ENTER to edit' --reverse --preview='bat {}' --bind 'ENTER:execute(efjck {})' --margin=3%"
+alias ed="fd . --exclude={.git,node_modules,tmp,target} --type d | fzf --header 'ENTER to edit' --reverse --preview='bat {}' --bind 'ENTER:execute(efjck {})' --margin=3%"
 
 # function ed () {
 # find /home/pat ! -name '*.class' ! -path '*.git*' -type d | fzf --header 'ENTER to edit' --reverse --preview='pistol {}' --bind 'ENTER:execute(emacsclient -t {})' --margin=3%
@@ -74,9 +72,6 @@ _bb_tasks() {
 function title {
     echo -ne "\033]0;"$*"\007"
 }
-
-export PATH=/usr/local/bin:$PATH
-export PATH="$HOME/bin:$PATH"
 
 function ke () {
     for pid in $(ps -ef | awk '/emacs/ {print $2}'); do kill -9 $pid; done;
@@ -101,6 +96,12 @@ export HSTR_CONFIG=hicolor       # get more colors
 export HISTCONTROL=ignorespace   # leading space hides commands from history
 export HISTFILESIZE=10000        # increase history file size (default is 500)
 export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+
+
+
+export PATH=/usr/local/bin:$PATH
+export PATH="$HOME/bin:$PATH"
+
 
 eval "$(zoxide init zsh)"
 systemctl start --user dtf-emacs-daemon.service
