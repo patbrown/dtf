@@ -17,10 +17,12 @@
              [cmd :as cmd])
   cmd (let [x *command-line-args*
             command (keyword (first x))
+            command-value (get cmd/cmd command)
             instructions (rest x)
             k (first instructions)
             v (vec (rest instructions))
-            args (vec (flatten [(get cmd/cmd command) instructions]))]
+            args (vec (flatten [command-value instructions]))
+            call-nbb (fn [] (apply shell ["nbb" "bin/nbb/cmd.cljs" (vec (flatten *command-line-args*))]))]
         #_(println {:x x :command command :instructions instructions :args args})
         (case command
           :menu (println cmd/menu)
@@ -28,5 +30,9 @@
             0 (println cmd/menu)
             1 (if (= 0 (count (first args)))
                 (apply shell (:view cmd/cmd))
-                (apply shell (get cmd/cmd command)))
-            (apply shell args))))}}
+                (if-not (nil? command-value)
+                  (apply shell (get cmd/cmd command))
+                  (call-nbb)))
+            (if-not (nil? command-value)
+              (apply shell args)
+              (call-nbb)))))}}
