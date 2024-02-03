@@ -124,8 +124,7 @@
   :straight t
   ;; Enable mood-line
   :config
-  (mood-line-mode)
-
+  (mood-line-mode)  
   ;; Use pretty Fira Code-compatible glyphs
   :custom
   (mood-line-glyph-alist mood-line-glyphs-fira-code)
@@ -142,7 +141,16 @@
         ((when (mood-line-segment-checker) "|") . "  ")
         ((mood-line-segment-checker)            . "  ")))))
 
-(use-package multiple-cursors :straight t :defer t)
+(use-package multiple-cursors :straight t
+  :init (require 'multiple-cursors)
+  :config
+  (global-set-key (kbd "C-c m") 'mc/edit-lines)
+  (global-set-key (kbd "C-c n") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-c N") 'mc/mark-next-word-like-this)
+  (global-set-key (kbd "C-c p") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c P") 'mc/mark-previous-word-like-this)
+  (global-set-key (kbd "C-c !") 'mc/mark-all-dwim))
+
 (use-package paredit :straight t :ensure t
   :init
   (eval-after-load "paredit"
@@ -159,7 +167,7 @@
   (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
   :config
   (show-paren-mode t)
-  (define-key paredit-mode-map (kbd "M-s") nil)
+  
   :diminish nil)
 
 (use-package paredit-everywhere :straight t
