@@ -10,6 +10,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions
   zgen load zsh-users/zsh-history-substring-search
   zgen load hlissner/zsh-autopair
+  zgen load joshskidmore/zsh-fzf-history-search
   
   zgen save
 fi
