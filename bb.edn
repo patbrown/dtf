@@ -1,6 +1,18 @@
-{:paths ["tmp"]
+{:paths ["fjck/src/stage/babashka" "fjck/src/patbrown"]
  :deps {org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
-                                 :git/sha "1a841c4cc1d4f6dab7505a98ed2d532dd9d56b78"}}
+                                 :git/sha "1a841c4cc1d4f6dab7505a98ed2d532dd9d56b78"}
+        medley/medley {:mvn/version "1.4.0"}
+        com.brunobonacci/where {:mvn/version "0.5.6"}
+        exoscale/interceptor {:mvn/version "0.1.16"}
+        town.lilac/pyramid {:mvn/version "3.4.0"}
+        org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
+                                 :git/sha "1a841c4cc1d4f6dab7505a98ed2d532dd9d56b78"}
+        integrant/integrant {:mvn/version "0.8.1"}
+        honeysql/honeysql {:mvn/version "1.0.444"}
+        org.clojure/tools.namespace {:mvn/version "1.4.5"}
+        org.babashka/http-client {:mvn/version "0.4.15"}
+        camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}
+        orchestra/orchestra {:mvn/version "2021.01.01-1"}}
  :pods {}
  :tasks
  {:requires ([babashka.process :refer [shell]]

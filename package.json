@@ -1,7 +1,7 @@
 {
   "name": "dtf",
-  "version": "1.0.0",
-  "description": "",
+  "version": "5000.0.3",
+  "description": "down to parens",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ink": "^4.4.1",
+    "nbb": "^1.2.180",
     "taskbook": "^0.3.0"
   },
   "devDependencies": {
     "shadow-cljs": "^2.26.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patbrown/dtf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patbrown/dtf/issues"
+  },
+  "homepage": "https://github.com/patbrown/dtf#readme"
 }
