@@ -126,3 +126,9 @@ flycheck_*.el
 /.zcompdump-dtf-5.9.zwc
 /.zgen/
 /.tmux/plugins/tmuxifier/
+/.PenTablet/
+/.aws/
+/.DS_Store
+/workspace/
+/obs-scene-collections/
+/obs-mattes/
