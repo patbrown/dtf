@@ -97,14 +97,12 @@ export HISTCONTROL=ignorespace   # leading space hides commands from history
 export HISTFILESIZE=10000        # increase history file size (default is 500)
 export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
 
-
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/bin:$PATH"
 
-
+eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-systemctl start --user dtf-emacs-daemon.service
-systemctl start --user fjck-emacs-daemon.service
-systemctl enable --user dtf-emacs-daemon.service
-systemctl enable --user fjck-emacs-daemon.service
